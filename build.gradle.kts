@@ -1,18 +1,28 @@
 plugins {
     java
 }
+val projectGroup: String by project
+val projectVersion: String by project
+group = projectGroup
+version = projectVersion
 
-group = "org.example"
-version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
+allprojects {
+    apply(plugin = "java")
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        val junitVersion: String by project
+
+        testImplementation("org.junit.jupiter", "junit-jupiter-api", junitVersion)
+    }
+
+    configure<JavaPluginConvention> {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+    }
 }
 
-dependencies {
-    testCompile("junit", "junit", "4.12")
-}
 
-configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-}
